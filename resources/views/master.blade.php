@@ -194,7 +194,7 @@
             <!-- Sidebar navigation-->
             <nav class="sidebar-nav">
                 <ul id="sidebarnav">
-                    
+
                     @if (session()->get('user')->role == 'Owner')
                         <li>
                             <a href="{{ route('index') }}">
@@ -249,7 +249,7 @@
                             </ul>
                         </li>
                     @endif
-                    
+
                     @if (session()->get('user')->role == 'Owner')
                         <li>
                             <a class="has-arrow " href="#" aria-expanded="false">
@@ -264,7 +264,7 @@
 
                                 <li><a href="{{ route('sale_page') }}">@lang('lang.make_order')</a></li>
                                 <li><a href="{{ route('sale_history') }}">@lang('lang.incoming_order')</a></li>
-                           
+
                                 {{-- 0-all fbpage,1-order_type (preorder) --}}
                                 <li><a href="{{ route('getArrivedOrders') }}">Arrived Orders</a></li>
                                 <li><a href="{{ route('getPendingOrders') }}">Pending Orders</a></li>
@@ -272,7 +272,7 @@
                             </ul>
                         </li>
                     @else
-                       
+
                         @if (session()->get('user')->role != 'Editor')
                         <li>
                             <a class="has-arrow " href="#" aria-expanded="false">
@@ -324,9 +324,9 @@
                                     <!--<li><a href="{{ route('deliveryordersLists') }}">Delivered Orders</a></li>-->
                                     <li><a href="{{ route('item_list','instock') }}">@lang('lang.item') @lang('lang.list')</a>
                                     </li>
-                                    
+
                                 @endif
-                                
+
                                  @if (session()->get('user')->role == 'Delivery_Person')
                                     <li><a href="{{ route('stock_dashboard') }}">@lang('lang.stock_panel')</a></li>
                                     <li><a href="{{ route('sale_history') }}">@lang('lang.incoming_order')</a></li>

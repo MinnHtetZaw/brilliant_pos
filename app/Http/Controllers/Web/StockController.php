@@ -36,7 +36,7 @@ class StockController extends Controller
         if($role=='Sale_Person'){
 
             $item_from= $request->session()->get('user')->from_id;
-            
+
       }
       else {
         $item_from= $request->session()->get('from');
@@ -53,7 +53,7 @@ class StockController extends Controller
     //     if($role=='Sale_Person'){
 
     //         $item_from= $request->session()->get('user')->from_id;
-            
+
     //   }
     //   else {
     //     $item_from= $request->session()->get('from');
@@ -78,7 +78,7 @@ class StockController extends Controller
         $role= $request->session()->get('user')->role;
 
        $items= Item::with('category')->with('sub_category')->get();
-       //TODO 
+       //TODO
         dd($items);
         $shops = From::all();
     	return view('Stock.reorder_page', compact('items','shops'));
@@ -102,13 +102,13 @@ class StockController extends Controller
         $item_id = $request->unit_id;
 
         try {
-            
+
             $item = Item::findOrFail($item_id);
 
         } catch (\Exception $e) {
-            
+
             alert()->error("Item Not Found!")->persistent("Close!");
-            
+
             return redirect()->back();
 
         }
@@ -144,13 +144,13 @@ class StockController extends Controller
         $id = $request->unit_id;
 
         try {
-            
+
             $unit = CountingUnit::findOrFail($id);
 
         } catch (\Exception $e) {
-            
+
             alert()->error("Counting Unit Not Found!")->persistent("Close!");
-            
+
             return redirect()->back();
 
         }
@@ -181,7 +181,7 @@ class StockController extends Controller
 
         return response()->json($item);
     }
-    
+
     public function reservestockUpdateAjax(Request $request)
     {
         try {
@@ -194,7 +194,7 @@ class StockController extends Controller
 
         return response()->json($item);
     }
-    
+
     public function reservestockResetAjax(Request $request)
     {
         try {
@@ -209,7 +209,7 @@ class StockController extends Controller
 
         return response()->json($items);
     }
-    
+
     public function priceUpdateAjax(Request $request)
     {
         try {
@@ -238,7 +238,7 @@ class StockController extends Controller
         $diff_total= ($diff_qty) * $unit_first->price;
 
         $purchase_new_total = $purchase->total_price + ($diff_total);
-  
+
         try {
 
             $purchase->total_price = $purchase_new_total;
@@ -250,10 +250,10 @@ class StockController extends Controller
 
         try {
             $update_stock = Stockcount::where('counting_unit_id',$request->unit_id)->where('from_id',1)->first();
-        
+
         } catch (Exception $e) {
             return response()->json(0);
-            
+
         }
 
         $balanced_qty = $update_stock->stock_qty + ($diff_qty);
@@ -268,9 +268,9 @@ class StockController extends Controller
     public function itemadjustLists(Request $request)
     {
         $item_from= $request->session()->get('from');
-        
+
         $item_adjusts =  Itemadjust::where('from_id',$item_from)->get();
-        
+
         return view('Itemadjust.itemadjust',compact('item_adjusts'));
     }
     public function itemadjustAjax(Request $request)

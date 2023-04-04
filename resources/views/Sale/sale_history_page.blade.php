@@ -102,10 +102,9 @@
                 </div>
             </div>
         </div> --}}
-        <form action="{{route('orderListsOrderType')}}" method="POST">
-            @csrf
-            <div class="row ml-4 mt-3">
 
+        <div class="row ml-4 mt-3">
+                @csrf
             <div class="col-md-2">
                 <label class="control-label font-weight-bold">@lang('lang.from')</label>
                 <input type="date" name="from" id="from_Date" class="form-control" value="{{$current_Date}}" required>
@@ -145,7 +144,7 @@
             </div>
 
         </div>
-        </form>
+
 
 
         <div class="row ml-4 mt-3">
@@ -456,12 +455,14 @@
             var mkt_staff = $('#mkt_staffs').val();
             var from = $('#from_Date').val();
             var to = $('#to_Date').val();
-            console.log(order_type,fb_page,from);
+            console.log(order_type,fb_page,from,mkt_staff,to);
+
             $.ajax({
 
             type: 'POST',
 
             url: '{{ route('orderListsOrderType') }}',
+            cache: false,
 
             data: {
                 "_token": "{{ csrf_token() }}",
@@ -473,7 +474,7 @@
             },
 
             success: function(data) {
-
+                console.log(data);
                 if (data.length >0) {
                     var html = '';
                     var orderCheckBox = '';
@@ -590,16 +591,6 @@
                     "info": false,
                     "destroy": true
                  });
-
-                    // swal({
-                    //     toast:true,
-                    //     position:'top-end',
-                    //     title:"Success",
-                    //     text:"Orders Changed!",
-                    //     button:false,
-                    //     timer:500,
-                    //     icon:"success"
-                    // });
 
                 } else {
                     var html = `

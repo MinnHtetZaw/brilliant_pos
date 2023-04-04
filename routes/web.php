@@ -152,12 +152,13 @@ Route::group(['middleware' => ['UserAuth']], function () {
     Route::post('Sale/Voucher', 'Web\SaleController@storeVoucher');
     Route::post('Sale/Get-Voucher', 'Web\SaleController@getVucherPage')->name('get_voucher');
     Route::get('Sale/History', 'Web\SaleController@getSaleHistoryPage')->name('sale_history');
-    Route::post('/showFbPages','Web\SaleController@showFbPages')->name('show_fbpages');
+    Route::post('Sale/History','Web\SaleController@getSaleHistroyList')->name('sale_list');
+    // Route::post('/showFbPages','Web\SaleController@showFbPages')->name('show_fbpages');
     Route::get('arrived-orders', 'Web\OrderController@getArrivedOrders')->name('getArrivedOrders');
-     Route::get('canceled-orders', 'Web\OrderController@getCanceledOrders')->name('getCanceledOrders');
+    Route::get('canceled-orders', 'Web\OrderController@getCanceledOrders')->name('getCanceledOrders');
     Route::get('pending-orders', 'Web\OrderController@getPendingOrders')->name('getPendingOrders');
     Route::get('return-orders', 'Web\OrderController@getReturnedOrders')->name('getReturnedOrders');
-    
+
     Route::get('Sale/SummaryMain','Web\SaleController@getVoucherSummaryMain')->name('voucher_summary_main');
     Route::post('Sale/SummaryDetail','Web\SaleController@searchItemSalesByDate')->name('search_item_sales_by_date');
     Route::post('Sale/Search-History', 'Web\SaleController@searchSaleHistory')->name('search_sale_history');
@@ -191,19 +192,19 @@ Route::group(['middleware' => ['UserAuth']], function () {
     Route::get('Purchase/Details/{id}', 'Web\AdminController@getPurchaseHistoryDetails')->name('purchase_details');
     Route::get('Purchase/Create', 'Web\AdminController@createPurchaseHistory')->name('create_purchase');
     Route::post('Purchase/Store', 'Web\AdminController@storePurchaseHistory')->name('store_purchase');
-    
+
     //Instock Purchase
     Route::get('InStockPurchase', 'Web\AdminController@getInStockPurchaseHistory')->name('instock_purchase_list');
     Route::get('InStockPurchase/Create', 'Web\AdminController@createInStockPurchaseHistory')->name('create_instock_purchase');
     Route::post('InStockPurchase/Store', 'Web\AdminController@storeInStockPurchaseHistory')->name('store_instock_purchase');
     Route::get('InStockPurchase/Details/{id}', 'Web\AdminController@getInStockPurchaseHistoryDetails')->name('instock_purchase_details');
-    
+
     Route::post('arrived-items', 'Web\OrderController@arrivedItems')->name('arrived_items');
     Route::post('outofstock-items', 'Web\OrderController@outofstockItems')->name('outofstock_items');
     Route::post('redeliver-order', 'Web\OrderController@redeliverOrder')->name('redeliver-order');
     Route::post('delivere-orders', 'Web\OrderController@deliveredOrders')->name('delivered_orders');
     Route::post('cancel-orders', 'Web\OrderController@canceledOrders')->name('canceled_orders');
-    
+
     Route::post('store_supplier', 'Web\AdminController@store_supplier')->name('store_supplier');
     Route::get('add_supplier', 'Web\AdminController@add_supplier')->name('add_supplier');
     Route::get('suppliercreditlist','Web\AdminController@show_supplier_credit_lists')->name('supplier_credit_list');
@@ -222,7 +223,7 @@ Route::group(['middleware' => ['UserAuth']], function () {
     Route::get('addasset', 'Web\AdminController@addasset')->name('addasset');
     Route::get('Financial', 'Web\AdminController@getTotalSalenAndProfit')->name('financial');
     Route::get('MarketingReview', 'Web\AdminController@getMarketingReview')->name('marketingreview');
-    
+
     Route::get('Expenses', 'Web\AdminController@expenseList')->name('expenses');
     Route::post('storeExpense', 'Web\AdminController@storeExpense')->name('store_expense');
     Route::post('store_asset', 'Web\AdminController@storeAsset')->name('store_asset');
@@ -264,7 +265,7 @@ Route::group(['middleware' => ['UserAuth']], function () {
 		Route::post('reserve_stockupdate-ajax', 'Web\StockController@reservestockUpdateAjax')->name('reserve_stockupdate-ajax');
 		Route::post('reserve_stockreset-ajax', 'Web\StockController@reservestockResetAjax')->name('reserve_stockreset-ajax');
 	Route::post('priceupdate-ajax', 'Web\StockController@priceUpdateAjax')->name('priceupdate-ajax');
-	
+
 	Route::post('purchseupdate-ajax', 'Web\StockController@purchaseUpdateAjax')->name('purchaseupdate-ajax');
 	Route::post('itemadjust-ajax', 'Web\StockController@itemadjustAjax')->name('itemadjust-ajax');
 	Route::get('itemadjust-lists', 'Web\StockController@itemadjustLists')->name('itemadjust-lists');
@@ -294,15 +295,15 @@ Route::group(['middleware' => ['UserAuth']], function () {
     Route::post('add-delivery-name', 'Web\OrderController@addDeliveryName');
 
     Route::post('orderLists/order_type', 'Web\OrderController@orderListsOrderType')->name('orderListsOrderType');
-    
+
     Route::post('orderLists/arrived', 'Web\OrderController@arrivedOrderLists')->name('arrivedOrderLists');
     Route::post('orderLists/canceled', 'Web\OrderController@searchCanceledOrders')->name('canceledOrderLists');
 
     Route::post('delivery_order_details', 'Web\OrderController@delivery_order_details')->name('delivery_order_details');
     Route::get('delivery_order_details', 'Web\OrderController@get_delivery_order_details');
-    
+
     Route::post('delivery_return_orders', 'Web\OrderController@returnOrderLists')->name('delivery_return_orders');
-    
+
     Route::post('packed_orders', 'Web\OrderController@packedOrders')->name('packed_orders');
     Route::post('reserve_qty', 'Web\OrderController@addReserveQty')->name('addReserveQty');
 
@@ -313,7 +314,7 @@ Route::group(['middleware' => ['UserAuth']], function () {
     Route::get('transactions/search', 'Web\AdminController@get_search_transactions_bydate')->name('search_transactions_bydate');
     Route::post('transactions/detail', 'Web\AdminController@transaction_detail')->name('transaction_detail');
     Route::get('prepaid-clear-flash/override/{voucher_id}', 'Web\AdminController@clearFlashOverride')->name('clearFlashOverride');
-    
+
     Route::post('orders/return', 'Web\AdminController@orderReturn')->name('orderReturn');
 
     Route::get('itemToStock/{item_id}/{quantity}/{voucher_id}/{item_code}/{sku_code}', 'Web\AdminController@itemToStock')->name('itemToStock');

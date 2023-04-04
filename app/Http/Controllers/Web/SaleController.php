@@ -414,10 +414,6 @@ class SaleController extends Controller
             $fb_pages =Fbpage::all();
         }
 
-
-
-
-
         $purchase_lists = DB::table('item_purchase')->get();
         $search_sales = 0;
         return view('Sale.sale_history_page',compact('search_sales','voucher_lists','purchase_lists','current_Date','fb_pages','mkt_staffs'));

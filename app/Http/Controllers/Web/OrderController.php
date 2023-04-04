@@ -728,7 +728,7 @@ class OrderController extends Controller
             }else{
                 $fb_Ids = array($request->fb_page);
             }
-            $fb_pages = $request->session()->get('user')->employee->fbpages;
+            // $fb_pages = $request->session()->get('user')->employee->fbpages;    // view
         }
         else{
             if($request->mkt_staff == 0 && $request->fb_page == 0){   //all
@@ -740,7 +740,7 @@ class OrderController extends Controller
             }else{
                 $fb_Ids = array($request->fb_page);
             }
-            $fb_pages =Fbpage::all();
+            // $fb_pages =Fbpage::all();      //  view
 
         }
 
@@ -764,30 +764,30 @@ class OrderController extends Controller
             $voucher_lists =Voucher::whereIn('page_id',$fb_Ids)->whereNotNull($date_column)->whereBetween($date_column,[$request->from,$request->to])->where('order_type',$order_type)->orderBy('id','desc')->whereIn('status',[0,1,2,3,4,5,6,7])->with('fbpage')->with('items')->get();
         }
 
-        $cdate = new DateTime('Asia/Yangon');
+        // $cdate = new DateTime('Asia/Yangon');
 
-        $current_month = $cdate->format('m');
+        // $current_month = $cdate->format('m');
 
-        $current_month_year = $cdate->format('Y');
+        // $current_month_year = $cdate->format('Y');
 
-        $start = new Carbon('first day of this month');
+        // $start = new Carbon('first day of this month');
 
-        $start_date = $start->format('Y-m-d');
+        // $start_date = $start->format('Y-m-d');
 
-        $current_Date = $cdate->format('Y-m-d');
+        // $current_Date = $cdate->format('Y-m-d');
 
-        $mkt_staffs = User::where('role','Marketing')->get();
+        // $mkt_staffs = User::where('role','Marketing')->get();
 
-        $deliveries = Delivery::all();
-        $purchase_lists = DB::table('item_purchase')->get();
-        $radio = $request->data_type;
-        // dd($voucher_lists);
-        return view('DeliveryOrder.pending_orders',compact('voucher_lists','purchase_lists','deliveries','current_Date','start_date','fb_pages','mkt_staffs','radio'));
+        // $deliveries = Delivery::all();
+        // $purchase_lists = DB::table('item_purchase')->get();
+        // $radio = $request->data_type;
+        // // dd($voucher_lists);
+        // return view('DeliveryOrder.pending_orders',compact('voucher_lists','purchase_lists','deliveries','current_Date','start_date','fb_pages','mkt_staffs','radio'));
 
-        // return response()->json([
-        //     'order_lists' => $voucher_lists,
-        //     'order_type' => $order_type,
-        // ]);
+        return response()->json([
+            'order_lists' => $voucher_lists,
+            'order_type' => $order_type,
+        ]);
     }
 
     protected function getAllOrdersForReview(Request $request){
@@ -1291,9 +1291,9 @@ class OrderController extends Controller
     }
 
 
-    public function orderListsOrderType(Request $request)
+    protected function orderListsOrderType(Request $request)
     {
-        // dd($request->all());
+
         $role= $request->session()->get('user')->role;
         //$role = 'Owner';
 
@@ -1323,38 +1323,39 @@ class OrderController extends Controller
             }
 
         }
-        $date = new DateTime('Asia/Yangon');
+        // dd($voucher_lists->toArray());
+        // $date = new DateTime('Asia/Yangon');
 
-        $current_Date = $date->format('Y-m-d');
+        // $current_Date = $date->format('Y-m-d');
 
-        $current_month = $date->format('m');
+        // $current_month = $date->format('m');
 
-        $current_month_year = $date->format('Y');
+        // $current_month_year = $date->format('Y');
 
 
-        $mkt_staffs = User::where('role','Marketing')->get();
+        // $mkt_staffs = User::where('role','Marketing')->get();
 
-        $role= $request->session()->get('user')->role;
-        //$role="Owner";
+        // $role= $request->session()->get('user')->role;
+        // //$role="Owner";
 
-        if($role=="Marketing"){
-            $fb_Ids= $request->session()->get('user')->employee->fbpages()->pluck('id')->toArray();
+        // if($role=="Marketing"){
+        //     $fb_Ids= $request->session()->get('user')->employee->fbpages()->pluck('id')->toArray();
 
-            $fb_pages = $request->session()->get('user')->employee->fbpages;
-        }
-        else{
+        //     $fb_pages = $request->session()->get('user')->employee->fbpages;
+        // }
+        // else{
 
-            $fb_pages =Fbpage::all();
-        }
-        $purchase_lists = DB::table('item_purchase')->get();
+        //     $fb_pages =Fbpage::all();
+        // }
+        // $purchase_lists = DB::table('item_purchase')->get();
 
-        $search_sales = 0;
+        // $search_sales = 0;
 
         // return "Hello world!";
         // dd($voucher_lists);
-        return view('Sale.sale_history_page',compact('search_sales','voucher_lists','purchase_lists','current_Date','fb_pages','mkt_staffs'));
+        // return view('Sale.sale_history_page',compact('search_sales','voucher_lists','purchase_lists','current_Date','fb_pages','mkt_staffs'));
         // $voucher_lists =Voucher::where('order_type',$request->order_type)->orderBy('id','desc')->with('items')->with('items.purchases')->get();
-        // return response()->json($voucher_lists);
+        return response()->json($voucher_lists);
 
     }
 
@@ -1404,7 +1405,7 @@ class OrderController extends Controller
                 $fb_pages = $request->session()->get('user')->employee->fbpages;
             }
             else{   //owner
-              
+
                 $fb_pages =Fbpage::all();
             }
 
@@ -1453,35 +1454,35 @@ class OrderController extends Controller
             return $item->where('purchase_id','!=',0)->OrwhereIn('status',[1,2,5]);
             })->get();
         }
-        // return response()->json($voucher_lists);
+        return response()->json($voucher_lists);
 
-        $cdate = new DateTime('Asia/Yangon');
+        // $cdate = new DateTime('Asia/Yangon');
 
-        $current_month = $cdate->format('m');
+        // $current_month = $cdate->format('m');
 
-        $current_month_year = $cdate->format('Y');
+        // $current_month_year = $cdate->format('Y');
 
-        $start = new Carbon('first day of this month');
+        // $start = new Carbon('first day of this month');
 
-        $start_date = $start->format('Y-m-d');
+        // $start_date = $start->format('Y-m-d');
 
-        $current_Date = $cdate->format('Y-m-d');
+        // $current_Date = $cdate->format('Y-m-d');
 
-        $mkt_staffs = User::where('role','Marketing')->get();
+        // $mkt_staffs = User::where('role','Marketing')->get();
 
-        if($role=="Marketing"){
-            $fb_Ids= $request->session()->get('user')->employee->fbpages()->pluck('id')->toArray();
-            $fb_pages = $request->session()->get('user')->employee->fbpages;
-        }
-        else{   //owner
-            $fb_Ids= Fbpage::get()->pluck('id')->toArray();
-            $fb_pages =Fbpage::all();
-        }
-        // $voucher_lists = Voucher::where('order_type',1)->take(2)->get();
-        $purchase_lists = DB::table('item_purchase')->get();
-        // dd($voucher_lists);
-        // return $voucher_lists;
-        return view('DeliveryOrder.arrived_orders',compact('voucher_lists','purchase_lists','fb_pages','start_date','current_Date','mkt_staffs','radio'));
+        // if($role=="Marketing"){
+        //     $fb_Ids= $request->session()->get('user')->employee->fbpages()->pluck('id')->toArray();
+        //     $fb_pages = $request->session()->get('user')->employee->fbpages;
+        // }
+        // else{   //owner
+        //     $fb_Ids= Fbpage::get()->pluck('id')->toArray();
+        //     $fb_pages =Fbpage::all();
+        // }
+        // // $voucher_lists = Voucher::where('order_type',1)->take(2)->get();
+        // $purchase_lists = DB::table('item_purchase')->get();
+        // // dd($voucher_lists);
+        // // return $voucher_lists;
+        // return view('DeliveryOrder.arrived_orders',compact('voucher_lists','purchase_lists','fb_pages','start_date','current_Date','mkt_staffs','radio'));
     }
 
 

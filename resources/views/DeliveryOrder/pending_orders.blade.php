@@ -55,7 +55,7 @@
                     </div>
 
 
-            <form action="{{route('get_orders')}}" method="POST">
+            {{-- <form action="{{route('get_orders')}}" method="POST"> --}}
                 @csrf
                 <input type="hidden" id="data_types" name="data_type" value="{{$radio}}">
             <div class="row mt-2">
@@ -109,7 +109,7 @@
                     <button class="btn btn-danger ml-4 d-none" id="item_cancel">Cancel</button>
                 </div>
             </div>
-          </form>
+          {{-- </form> --}}
 
 
 

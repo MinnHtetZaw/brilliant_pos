@@ -55,7 +55,7 @@
 
                     </div>
 
-            <form action="{{route('arrivedOrderLists')}}" method="POST">
+            {{-- <form action="{{route('arrivedOrderLists')}}" method="POST"> --}}
                 @csrf
                 <input type="hidden" id="data_types" name="data_type" value="{{$radio}}">
             <div class="row mt-2">
@@ -97,7 +97,7 @@
                     <button class="btn btn-info px-4" id="search_orders">Search</button>
                 </div>
             </div>
-        </form>
+        {{-- </form> --}}
 
         <div class="col-md-2 m-t-30">
         <button class="btn btn-success" id="itemarrived">Arrived</button>
